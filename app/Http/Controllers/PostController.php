@@ -3,86 +3,96 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\PostCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
 
-        return view("post.list", [
+        return view("posts.list", [
             "posts" => Post::all()
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view("post.create");
+        return view("posts.create", [
+            "categories" => PostCategory::all()
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "title" => ["required"],
+            "excerpt" => ["required"],
+            "categories" => ["required", "exists:post_categoriess,id"],
+            "content" => ["required"],
+        ]);
+
+        Post::create([
+            "title" => $request->title,
+            "slug" => Str::slug($request->title),
+            "excerpt" => $request->excerpt,
+            "publish" => $request->publish ? 1 : 0,
+            "body" => $request->content,
+            "image" => $request->image,
+        ]);
+
+        Session::flash('message', 'New Post has been Created');
+        return redirect()->route("posts.index");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Post $post)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Post $post)
     {
-        return view("post.edit");
+        return view("posts.edit", [
+            "post" => $post,
+            "categories" => PostCategory::all()
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            "title" => ["required"],
+            "excerpt" => ["required"],
+            "categories" => ["required", "exists:post_categories,id"],
+            "content" => ["required"],
+        ]);
+
+        $post->update([
+            "title" => $request->title,
+            "slug" => Str::slug($request->title),
+            "excerpt" => $request->excerpt,
+            "publish" => $request->publish ? 1 : 0,
+            "body" => $request->content,
+            "image" => $request->image,
+        ]);
+
+        $post->categories()->sync($request->categories);
+
+        Session::flash('message', 'Post has been Updated');
+        return redirect()->route("posts.index");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        Session::flash('message', 'Post has been Deleted');
+        return redirect()->route("posts.index");
     }
 }

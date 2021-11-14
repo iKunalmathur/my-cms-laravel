@@ -26,29 +26,11 @@
 </head>
 
 <body>
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-        {{-- Sidebar --}}
-        @include('layouts.sidebar')
-        <div class="flex flex-col flex-1 w-full">
-            {{-- Header/Top Navigation --}}
-            @include('layouts.header')
-            <main class="h-full pb-16 overflow-y-auto">
-                <div class="container px-6 mx-auto grid">
-                    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                        @yield('page-title')
-                    </h2>
-                    {{-- Alerts & Notifications --}}
-                    @include('layouts.alerts')
-
-                    {{-- Page-Content --}}
-                    @section('page-content')
-
-                    @show
-                </div>
-            </main>
-        </div>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">            
+            {{-- Page-Content --}}
+            @section('page-content')
+            @show
     </div>
-
     {{-- Scripts --}}
     @yield('add-to-script')
 </body>
