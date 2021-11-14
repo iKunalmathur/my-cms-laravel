@@ -6,20 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Media extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         "title",
-        "slug",
-        "excerpt",
-        "publish",
-        "body",
+        "path",
+        "description"
     ];
-
-    public function categories()
-    {
-        return $this->belongsToMany(PostCategory::class, "post_catagory", "post_id", "category_id");
-    }
 }

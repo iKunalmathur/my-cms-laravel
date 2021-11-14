@@ -4,82 +4,70 @@ namespace App\Http\Controllers;
 
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class PostCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return view("post_categories.list", [
+            "post_categories" => PostCategory::all()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view("post_categories.create");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "title" => ["required"]
+        ]);
+
+        PostCategory::create([
+            "title" => $request->title,
+            "slug" => Str::slug($request->title)
+        ]);
+
+        Session::flash('message', 'New post category has been created');
+        return redirect()->route("categories.index");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PostCategory  $postCategory
-     * @return \Illuminate\Http\Response
-     */
     public function show(PostCategory $postCategory)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PostCategory  $postCategory
-     * @return \Illuminate\Http\Response
-     */
     public function edit(PostCategory $postCategory)
     {
-        //
+        return view("post_categories.edit", [
+            "postCategory" => $postCategory
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PostCategory  $postCategory
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, PostCategory $postCategory)
     {
-        //
+        $request->validate([
+            "title" => ["required"]
+        ]);
+
+        $postCategory->update([
+            "title" => $request->title,
+            "slug" => Str::slug($request->title)
+        ]);
+
+        Session::flash('message', 'Post category has been Updated');
+        return redirect()->route("post_categories.index");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PostCategory  $postCategory
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(PostCategory $postCategory)
     {
-        //
+        $postCategory->delete();
+        Session::flash('message', 'Post category has been Deleted');
+        return redirect()->route("post_categories.index");
     }
 }

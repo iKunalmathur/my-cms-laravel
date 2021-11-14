@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::get('/dashboard', function () {
 
 
 Route::resource("/posts", PostController::class);
-Route::resource("/post/categories", PostCategoryController::class);
+Route::resource("/post_categories", PostCategoryController::class);
+Route::resource("/media", MediaController::class);
 
 require __DIR__ . '/auth.php';

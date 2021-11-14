@@ -14,6 +14,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
     <script src="/assets/tailwind/js/charts-lines.js" defer></script>
     <script src="/assets/tailwind/js/charts-pie.js" defer></script>
+
+        <style>
+        .ck-editor__editable_inline {
+            min-height: 400px;
+        }
+    </style>
+
+
+    @yield('add-to-head')
 </head>
 
 <body>
@@ -23,7 +32,7 @@
         <div class="flex flex-col flex-1 w-full">
             {{-- Header/Top Navigation --}}
             @include('layouts.header')
-            <main class="h-full overflow-y-auto">
+            <main class="h-full pb-16 overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                         @yield('page-title')
@@ -39,6 +48,9 @@
             </main>
         </div>
     </div>
+
+    {{-- Scripts --}}
+    @yield('add-to-script')
 </body>
 
 </html>
