@@ -10,7 +10,7 @@
 ])
 
 <label class="block text-sm">
-    <span class="text-gray-700 dark:text-gray-400">
+    <span class="text-gray-700 dark:text-gray-400 capitalize">
         {{ $label }}
     </span>
     <input

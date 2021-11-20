@@ -23,6 +23,7 @@ class PostCategoryFactory extends Factory
     {
         return [
             "title" => $this->faker->words($nb = 2, $asText = true),
+            "color" => $this->faker->colorName(),
             "slug" => $this->faker->slug(),
         ];
     }

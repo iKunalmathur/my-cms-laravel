@@ -12,6 +12,7 @@ class PostCategory extends Model
 
     protected $fillable = [
         "title",
+        "color",
         "slug"
     ];
 

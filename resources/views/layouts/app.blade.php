@@ -19,6 +19,9 @@
         .ck-editor__editable_inline {
             min-height: 400px;
         }
+        .capitalize{
+            text-transform: capitalize
+        }
     </style>
 
 

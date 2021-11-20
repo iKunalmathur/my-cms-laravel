@@ -5,19 +5,25 @@
 
 @section('page-content')
 <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-    @forelse ($media as $item)
+    @forelse ($media as $medium)
         <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
         <div class="mb-2">
-            <img src="{{ asset("storage/".$item->path) }}" alt="">
-            <input type="text" id="texttocopy" value="{{ asset("storage/".$item->path) }}" hidden >
+            <img src="{{ $medium->imgPath() }}" alt="">
+            <input type="text" id="{{ $medium->id }}" value="{{ $medium->imgPath() }}" class="block w-full mt-1 text-xs border-gray-600 dark:text-gray-300 dark:bg-gray-700 focus:border-gray-400 focus:outline-none focus:shadow-outline-red form-input" readonly>
         </div>
         <div>
-            <p class="mb-4 text-sm font-medium text-gray-600 dark:text-gray-400">
-                {{ $item->title }}
+            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                {{ $medium->title }}
             </p>
+            <p class="mb-4 text-xs text-gray-600 dark:text-gray-400">
+                {{ $medium->description }}
+            </p>
+            {{-- <p class="mb-4 text-xs text-gray-600 dark:text-gray-400">
+                {{ $medium->imgPath() }}
+            </p> --}}
             <p class="flex text-lg font-semibold text-gray-700 dark:text-gray-200 space-x-3">
                 <button
-                    onclick="copyText()"
+                    onclick="copyText('{{ $medium->id }}')"
                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                     aria-label="Like">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -27,7 +33,7 @@
                     </svg>
                 </button>
                 <a
-                    href="{{ route("media.edit", $item) }}"
+                    href="{{ route("media.edit", $medium) }}"
                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                     aria-label="Like">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -45,12 +51,14 @@
 @endsection
 
 @section('add-to-script')
-    <script type="text/javascript">
-function copyText(){
-var text = document.getElementById("texttocopy");
-text.select();
-document.execCommand("copy");
-alert("Copy text to Clipboard: " + text.value);
-}
+<script type="text/javascript">
+    function copyText($id){
+    console.log($id);
+    var text = document.getElementById($id);
+    console.log(text);
+    text.select();
+    document.execCommand("copy");
+    alert("Copy text to Clipboard: " + text.value);
+    }
 </script>
 @endsection

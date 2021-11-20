@@ -15,4 +15,9 @@ class Media extends Model
         "path",
         "description"
     ];
+
+    public function imgPath()
+    {
+        return asset("storage/" . $this->path);
+    }
 }

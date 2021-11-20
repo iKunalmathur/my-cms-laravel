@@ -17,6 +17,7 @@ class CreatePostCategoriesTable extends Migration
             $table->id();
             $table->string("title");
             $table->string("slug")->unique();
+            $table->string("color");
             $table->timestamps();
             $table->softDeletes();
         });

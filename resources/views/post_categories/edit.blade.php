@@ -11,6 +11,9 @@
         <!-- Title input -->
         <x-input type="text" id="title" name="title" label="Title" theme="gray" value="{{ $postCategory->title }}"
             note="slug will be auto genrated using title" />
+         <!-- color input -->
+        <x-input type="text" id="color" name="color" label="color" theme="gray"
+            note="default gray" placeholder="blue / #333" value="{{ $postCategory->color }}" />
         <!-- Publish Or not input -->
         <div class="flex text-sm py-2">
             <x-checkbox label="Make it" uLabel="public" id="publish" name="publish" />

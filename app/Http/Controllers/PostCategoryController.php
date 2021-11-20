@@ -30,11 +30,12 @@ class PostCategoryController extends Controller
 
         PostCategory::create([
             "title" => $request->title,
+            "color" => $request->color ?? "gray",
             "slug" => Str::slug($request->title)
         ]);
 
         Session::flash('message', 'New post category has been created');
-        return redirect()->route("categories.index");
+        return redirect()->route("post_categories.index");
     }
 
     public function show(PostCategory $postCategory)
@@ -57,6 +58,7 @@ class PostCategoryController extends Controller
 
         $postCategory->update([
             "title" => $request->title,
+            "color" => $request->color ?? "gray",
             "slug" => Str::slug($request->title)
         ]);
 

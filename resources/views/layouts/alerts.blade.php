@@ -25,7 +25,7 @@
 </a>
 @endif --}}
 
-@if(Session::has('message'))
+{{-- @if(Session::has('message'))
 <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
     href="#">
     <div class="flex items-center">
@@ -53,4 +53,87 @@
     </div>
 </a>
 @endforeach
+@endif --}}
+
+<style>
+    /* The alert message box */ 
+.alert {
+  padding: 15px;
+  background-color: rgb(126, 58, 242);
+  color: white;
+  margin-bottom: 15px;
+
+  border-radius: 0.5rem;
+
+opacity: 1;
+  transition: opacity 0.6s; /* 600ms to fade out */
+}
+.alert-success {
+  background-color: rgb(222, 247, 236);
+  color: rgb(4, 108, 78);
+}
+.alert-danger {
+  background-color: rgb(253, 232, 232);
+  color: rgb(200, 30, 30);
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: inherit;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+</style>
+@if(Session::has('message'))
+ <div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {{ Session::get('message') }}
+</div> 
 @endif
+
+@if(Session::has('success'))
+ <div class="alert alert-success">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+ {{ Session::get('success') }}
+</div>
+@endif
+
+@if ($errors->any())
+@foreach ($errors->all() as $error)
+ <div class="alert alert-danger">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {{ $error }}
+</div> 
+@endforeach
+@endif
+<script>
+// Get all elements with class="closebtn"
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+// Loop through all close buttons
+for (i = 0; i < close.length; i++) {
+  // When someone clicks on a close button
+  close[i].onclick = function(){
+
+    // Get the parent of <span class="closebtn"> (<div class="alert">)
+    var div = this.parentElement;
+
+    // Set the opacity of div to 0 (transparent)
+    div.style.opacity = "0";
+
+    // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+</script>

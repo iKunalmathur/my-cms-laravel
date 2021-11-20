@@ -1,15 +1,18 @@
 @extends('layouts.app')
 @section('page-title', "New Categories" )
-@section('page-cta-link', route("categories.create"))
+@section('page-cta-link', route("post_categories.create"))
 @section('page-cta', "New Category")
 
 @section('page-content')
-<form action="{{ route("categories.store") }}" method="POST">
+<form action="{{ route("post_categories.store") }}" method="POST">
 	@csrf
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 space-y-2">
         <!-- Title input -->
         <x-input type="text" id="title" name="title" label="Title" theme="gray"
             note="slug will be auto genrated using title" />
+        <!-- color input -->
+        <x-input type="text" id="color" name="color" label="color" theme="gray"
+            note="default gray" placeholder="blue / #333" />
         <!-- Publish Or not input -->
         <div class="flex text-sm py-2">
             <x-checkbox label="Make it" uLabel="public" id="publish" name="publish" />

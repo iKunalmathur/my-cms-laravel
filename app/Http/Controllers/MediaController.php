@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
@@ -39,46 +40,55 @@ class MediaController extends Controller
             "description" => $request->filePath
         ]);
 
-        Session::flash('message', 'New Media has been Created');
+        Session::flash('success', 'New Media has been Created');
         return redirect()->route("media.index");
     }
 
-    public function show(Media $media)
+    public function show(Media $medium)
     {
         //
     }
 
-    public function edit(Media $media)
+    public function edit(Media $medium)
     {
-        //
+        return view("media.edit", [
+            "medium" => $medium
+        ]);
     }
 
 
-    public function update(Request $request, Media $media)
+    public function update(Request $request, Media $medium)
     {
 
-        dd($media);
+        // dd($request->all());
         $request->validate([
             "title" => ["required"],
-            "file" => ["required", "mimes:jpg,png"],
             "description" => ["max:255"]
         ]);
 
-        $filePath = $request->file("file")->store("/media/images");
+        if ($request->file("file")) {
 
-        // dd($filePath);
+            Storage::delete($medium->path);
+            $filePath = $request->file("file")->store("/media/images");
 
-        $media->update([
-            "title" => $request->title,
-            "path" => $filePath,
-            "description" => $request->filePath
-        ]);
+            $medium->update([
+                "title" => $request->title,
+                "path" => $filePath,
+                "description" => $request->description
+            ]);
+        } else {
+            $medium->update([
+                "title" => $request->title,
+                "description" => $request->description
+            ]);
+        }
 
-        Session::flash('message', 'New Media has been Created');
+
+        Session::flash('success', 'Media has been Updated');
         return redirect()->route("media.index");
     }
 
-    public function destroy(Media $media)
+    public function destroy(Media $medium)
     {
         //
     }
