@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('page-title', "Media Create" )
-@section('page-cta-link', route("media.create"))
-@section('page-cta', "New Media")
+@section('page-cta-link', route("media.index"))
+@section('page-cta', "GO Back")
 
 @section('page-content')
 <form action="{{ route("media.store") }}" method="POST" enctype="multipart/form-data">

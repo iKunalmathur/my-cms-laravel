@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('page-title', "Edit Categories" )
-@section('page-cta-link', route("post_categories.create"))
-@section('page-cta', "New Category")
+@section('page-cta-link', route("post_categories.index"))
+@section('page-cta', "GO Back")
 
 @section('page-content')
 <form action="{{ route("post_categories.update", $postCategory) }}" method="POST">
