@@ -8,7 +8,7 @@
     @forelse ($media as $medium)
         <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
         <div class="mb-2">
-            <img src="{{ $medium->imgPath() }}" alt="">
+            <img src="{{ $medium->imgPath() }}" alt="image" style="height: 185px;width: 100%;object-fit: contain;">
             <input type="text" id="{{ $medium->id }}" value="{{ $medium->imgPath() }}" class="block w-full mt-1 text-xs border-gray-600 dark:text-gray-300 dark:bg-gray-700 focus:border-gray-400 focus:outline-none focus:shadow-outline-red form-input" readonly>
         </div>
         <div>

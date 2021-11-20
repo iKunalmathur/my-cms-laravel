@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -40,7 +41,9 @@ class MediaController extends Controller
             "description" => $request->filePath
         ]);
 
+        LogActivity::add("New Media " . $request->title . " has been Created");
         Session::flash('success', 'New Media has been Created');
+
         return redirect()->route("media.index");
     }
 
@@ -56,10 +59,8 @@ class MediaController extends Controller
         ]);
     }
 
-
     public function update(Request $request, Media $medium)
     {
-
         // dd($request->all());
         $request->validate([
             "title" => ["required"],

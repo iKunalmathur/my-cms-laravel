@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class PostController extends Controller
         $request->validate([
             "title" => ["required"],
             "excerpt" => ["required"],
-            "categories" => ["required", "exists:post_categoriess,id"],
+            "categories" => ["required", "exists:post_categories,id"],
             "content" => ["required"],
         ]);
 
@@ -45,7 +46,9 @@ class PostController extends Controller
             "image" => $request->image,
         ]);
 
-        Session::flash('message', 'New Post has been Created');
+        LogActivity::add("New Post " . $request->title . " has been Created");
+        Session::flash('success', 'New Post has been Created');
+
         return redirect()->route("posts.index");
     }
 
@@ -85,14 +88,14 @@ class PostController extends Controller
 
         $post->categories()->sync($request->categories);
 
-        Session::flash('message', 'Post has been Updated');
+        Session::flash('success', 'Post has been Updated');
         return redirect()->route("posts.index");
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
-        Session::flash('message', 'Post has been Deleted');
+        Session::flash('success', 'Post has been Deleted');
         return redirect()->route("posts.index");
     }
 }

@@ -72,4 +72,23 @@
         </div>
     </div>
 </div>
+
+<div>
+    <h3 class="mb-2 text-md font-medium text-gray-600 dark:text-gray-400">Recent Actitvity</h3>
+    @foreach ($logs as $log)
+    <div class="flex mb-4 justify-between items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 text-sm font-medium text-gray-600 dark:text-gray-400">
+        <p class="capitalize">
+            {{ $log->subject }}
+        </p>
+        <div class="flex  items-center">
+            <svg class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+            </svg>
+            <time>
+                {{ $log->created_at }}
+            </time>
+        </div>
+    </div>
+    @endforeach
+</div>
 @endsection

@@ -32,9 +32,15 @@
             </span>
             <select name="categories[]" multiple
                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                <option selected disabled>Select A Category</option>
+                <option disabled>Select A Category</option>
 				@foreach ($categories as $category)
-					<option value="{{ $category->id }}">{{ $category->title }}</option>
+					<option value="{{ $category->id }}"
+						@foreach ($post->categories as $c)
+							@if ($c->id === $category->id)
+							selected
+							@endif
+						@endforeach
+						>{{ $category->title }}</option>
 				@endforeach
             </select>
         </label>

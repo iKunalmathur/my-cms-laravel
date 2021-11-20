@@ -23,7 +23,7 @@
 			<x-textarea id="excerpt" name="excerpt" label="Excerpt" rows="5" />
 			<!-- Cover Image input -->
 			<x-input type="url" id="image" name="image" label="Cover" theme="gray"
-				note="image url" placeholder="http:://example.com/image.png" />
+				note="image url" placeholder="http:://example.com/image.png"  />
 
         <!-- Category input -->
         <label class="block mt-4 text-sm">
@@ -45,7 +45,7 @@
 
         {{-- content --}}
         <div class="py-4">
-            <textarea name="content" id="editor" class="form-control" cols="30" rows="10"></textarea>
+            <textarea name="content" id="editor" class="form-control" cols="30" rows="10">{{ old("content") }}</textarea>
         </div>
 
         <div>

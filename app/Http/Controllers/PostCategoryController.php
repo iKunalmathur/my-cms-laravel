@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -34,7 +35,9 @@ class PostCategoryController extends Controller
             "slug" => Str::slug($request->title)
         ]);
 
-        Session::flash('message', 'New post category has been created');
+        LogActivity::add("New post category " . $request->title . " has been Created");
+        Session::flash('success', 'New post category has been created');
+
         return redirect()->route("post_categories.index");
     }
 
@@ -62,14 +65,14 @@ class PostCategoryController extends Controller
             "slug" => Str::slug($request->title)
         ]);
 
-        Session::flash('message', 'Post category has been Updated');
+        Session::flash('success', 'Post category has been Updated');
         return redirect()->route("post_categories.index");
     }
 
     public function destroy(PostCategory $postCategory)
     {
         $postCategory->delete();
-        Session::flash('message', 'Post category has been Deleted');
+        Session::flash('success', 'Post category has been Deleted');
         return redirect()->route("post_categories.index");
     }
 }
