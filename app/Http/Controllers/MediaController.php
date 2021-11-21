@@ -14,7 +14,7 @@ class MediaController extends Controller
     public function index()
     {
         return view("media.list", [
-            "media" => Media::all()
+            "media" => Media::latest()->get()
         ]);
     }
 

@@ -14,7 +14,7 @@ class PostCategoryController extends Controller
     public function index()
     {
         return view("post_categories.list", [
-            "post_categories" => PostCategory::all()
+            "post_categories" => PostCategory::latest()->get()
         ]);
     }
 

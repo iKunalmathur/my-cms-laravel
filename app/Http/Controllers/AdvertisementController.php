@@ -14,7 +14,7 @@ class AdvertisementController extends Controller
     public function index()
     {
         return view("advertisements.list", [
-            "advertisements" => Advertisement::all()
+            "advertisements" => Advertisement::latest()->get()
         ]);
     }
 
