@@ -19,7 +19,9 @@
         name="{{ $name }}"
         value="{{ $value }}"
         class="block w-full mt-1 text-sm border-{{ $theme }}-600 dark:text-{{ $theme }}-300 dark:bg-gray-700 focus:border-{{ $theme }}-400 focus:outline-none focus:shadow-outline-red form-input"
-        placeholder="{{ $placeholder }}" />
+        placeholder="{{ $placeholder }}" @if ($type === "number")
+            onwheel="this.blur()"
+        @endif />
     <span class="text-xs text-{{ $theme }}-600 dark:text-{{ $theme }}-400">
         {{ $note }}
     </span>

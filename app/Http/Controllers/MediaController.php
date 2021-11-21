@@ -38,7 +38,7 @@ class MediaController extends Controller
         Media::create([
             "title" => $request->title,
             "path" => $filePath,
-            "description" => $request->filePath
+            "description" => $request->description
         ]);
 
         LogActivity::add("New Media " . $request->title . " has been Created");

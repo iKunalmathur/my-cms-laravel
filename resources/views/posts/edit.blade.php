@@ -46,11 +46,7 @@
         </label>
         <!-- Publish Or not input -->
         <div class="flex text-sm py-2">
-			@if ($post->publish)
-            <x-checkbox label="Make it" uLabel="public" id="publish" name="publish" checked />
-			@else
-            <x-checkbox label="Make it" uLabel="public" id="publish" name="publish"/>
-			@endif
+            <x-checkbox label="Make it" uLabel="public" id="publish" name="publish" checked="{{$post->publish}}" />
         </div>
 
         {{-- content --}}
