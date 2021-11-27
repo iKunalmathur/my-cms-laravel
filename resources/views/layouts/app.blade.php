@@ -15,11 +15,12 @@
     <script src="/assets/tailwind/js/charts-lines.js" defer></script>
     <script src="/assets/tailwind/js/charts-pie.js" defer></script>
 
-        <style>
+    <style>
         .ck-editor__editable_inline {
             min-height: 400px;
         }
-        .capitalize{
+
+        .capitalize {
             text-transform: capitalize
         }
     </style>
