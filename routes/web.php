@@ -42,6 +42,12 @@ Route::group(["middleware" => ["auth"]], function () {
         Artisan::call('cache:clear');
         return "cache cleared";
     });
+
+    Route::get('/linkstorage', function () {
+        $sourceStorage = base_path() . '/storage/app/public';
+        $publicStorage =  $_SERVER['DOCUMENT_ROOT'] . '/storage';
+        symlink($sourceStorage, $publicStorage);
+    });
 });
 
 require __DIR__ . '/auth.php';
