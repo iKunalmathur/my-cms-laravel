@@ -37,7 +37,7 @@ class PostController extends Controller
             "content" => ["required"],
         ]);
 
-        Post::create([
+        $post = Post::create([
             "title" => $request->title,
             "slug" => Str::slug($request->title),
             "excerpt" => $request->excerpt,
@@ -45,6 +45,8 @@ class PostController extends Controller
             "body" => $request->content,
             "image" => $request->image,
         ]);
+
+        $post->categories()->sync($request->categories);
 
         LogActivity::add("New Post " . $request->title . " has been Created");
         Session::flash('success', 'New Post has been Created');

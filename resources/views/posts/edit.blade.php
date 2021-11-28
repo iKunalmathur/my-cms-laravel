@@ -18,10 +18,10 @@
 	@method("PUT")
 	<div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 space-y-2">
 		<!-- Title input -->
-		<x-input type="text" id="title" name="title" label="Title" value="{{ $post->title }}"
+		<x-input type="text" id="title" name="title" label="Title" :value="$post->title"
 			note="slug will be auto genrated using title" />
 		<!-- Excerpt input -->
-		<x-textarea id="excerpt" name="excerpt" label="Excerpt" rows="5" value="{{ $post->excerpt }}" />
+		<x-textarea id="excerpt" name="excerpt" label="Excerpt" rows="5" :value="$post->excerpt" />
 		<!-- Cover Image input -->
 		<x-input type="url" id="image" name="image" label="Cover" theme="gray" note="image url"
 			placeholder="http:://example.com/image.png" value="{{ $post->image }}" />
