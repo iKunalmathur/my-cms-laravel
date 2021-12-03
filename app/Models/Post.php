@@ -10,6 +10,8 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = "posts";
+
     protected $fillable = [
         "title",
         "slug",
@@ -21,6 +23,6 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(PostCategory::class, "post_catagory", "post_id", "category_id");
+        return $this->belongsToMany(PostCategory::class, "posts_categories", "post_id", "category_id");
     }
 }

@@ -91,7 +91,7 @@ class PostController extends Controller
         $post->categories()->sync($request->categories);
 
         Session::flash('success', 'Post has been Updated');
-        return redirect()->route("posts.index");
+        return back();
     }
 
     public function destroy(Post $post)

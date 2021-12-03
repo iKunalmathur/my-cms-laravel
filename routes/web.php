@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -32,6 +33,7 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::resource("/post_categories", PostCategoryController::class);
     Route::resource("/media", MediaController::class);
     Route::resource("/advertisements", AdvertisementController::class);
+    Route::get("/subscribers", [SubscriberController::class, "index"])->name("subscribers.index");
 
     Route::get('/storage-link', function () {
         Artisan::call('storage:link');

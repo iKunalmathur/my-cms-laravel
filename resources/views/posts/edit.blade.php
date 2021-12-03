@@ -5,9 +5,14 @@
 
 @section('add-to-head')
 <style>
-	.ck.ck-editor__main>.ck-editor__editable {
-		background-color: #24262d !important;
-		color: aliceblue
+	/* .ck.ck-editor__main>.ck-editor__editable {
+		background-color: #595a5c !important;
+		color: aliceblue;
+	} */
+
+	.ck.ck-editor {
+		max-width: 74rem;
+		position: relative;
 	}
 </style>
 @endsection
@@ -50,7 +55,8 @@
 
 		{{-- content --}}
 		<div class="py-4">
-			<textarea name="content" id="editor" class="form-control" cols="30" rows="10">{{ $post->body }}</textarea>
+			<textarea name="content" id="editor" class="form-control editor" cols="30"
+				rows="10">{{ $post->body }}</textarea>
 		</div>
 
 		<div>
@@ -61,79 +67,56 @@
 		</div>
 	</div>
 </form>
+
 @endsection
 
 @section('add-to-script')
-<script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
+<script src="{{ asset('/assets/ckeditor-5/build/ckeditor.js') }}"></script>
+{{-- <script>
+	CKEDITOR.replace( 'content' );
+</script> --}}
 <script>
-	ClassicEditor
-    				.create( document.querySelector( '#editor' ), {
-    					
-    				toolbar: {
-    					items: [
-    						'heading',
-    						'|',
-    						'bold',
-    						'italic',
-    						'link',
-    						'bulletedList',
-    						'numberedList',
-    						'|',
-    						'alignment',
-    						'outdent',
-    						'indent',
-    						'fontColor',
-    						'fontBackgroundColor',
-    						'fontFamily',
-    						'fontSize',
-    						'removeFormat',
-    						'strikethrough',
-    						'underline',
-    						'highlight',
-    						'|',
-    						'blockQuote',
-    						'insertTable',
-    						'imageInsert',
-    						'mediaEmbed',
-    						'codeBlock',
-    						'code',
-    						'undo',
-    						'redo'
-    					]
-    				},
-    				language: 'en',
-    				image: {
-    					toolbar: [
-    						'imageTextAlternative',
-    						'imageStyle:inline',
-    						'imageStyle:block',
-    						'imageStyle:side'
-    					]
-    				},
-    				table: {
-    					contentToolbar: [
-    						'tableColumn',
-    						'tableRow',
-    						'mergeTableCells'
-    					]
-    				},
-    					licenseKey: '',
-    					
-    					
-    					
-    				} )
-    				.then( editor => {
-    					window.editor = editor;
-    			
-    					
-    					
-    					
-    				} )
-    				.catch( error => {
-    					console.error( 'Oops, something went wrong!' );
-    					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
-    					console.warn( 'Build id: tlmekwi91vd9-tckzugo3kf9g' );
-    					console.error( error );
-    				} );
+	const watchdog = new CKSource.EditorWatchdog();
+			
+			window.watchdog = watchdog;
+			
+			watchdog.setCreator( ( element, config ) => {
+				return CKSource.Editor
+					.create( element, config )
+					.then( editor => {
+						
+						
+						
+			
+						return editor;
+					} )
+			} );
+			
+			watchdog.setDestructor( editor => {
+				
+				
+			
+				return editor.destroy();
+			} );
+			
+			watchdog.on( 'error', handleError );
+			
+			watchdog
+				.create( document.querySelector( '.editor' ), {
+					
+					licenseKey: '',
+					
+					
+					
+				} )
+				.catch( handleError );
+			
+			function handleError( error ) {
+				console.error( 'Oops, something went wrong!' );
+				console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+				console.warn( 'Build id: igeljnra7re1-7ee8aym07c13' );
+				console.error( error );
+			}
+			
 </script>
 @endsection
